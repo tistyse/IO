@@ -93,6 +93,24 @@ local Button = Tab:CreateButton({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/OpenAimbotModified/refs/heads/main/main.lua", true))()
     end
 })
+local Button = Tab:CreateButton({
+    Name = "Infinite Jump(toggleable)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/INFJUMP.lua", true))()
+    end
+})
+local Button = Tab:CreateButton({
+    Name = "Freecam(Shift+P)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/freecam.lua", true))()
+    end
+})
+local Button = Tab:CreateButton({
+    Name = "Ctrl+click TP(toggleable)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/CTRLTP.lua", true))()
+    end
+})
 local Label = Tab:CreateLabel("Danger", "triangle-alert", Color3.fromRGB(255, 77, 77))
 local Button = Tab:CreateButton({
     Name = "Destroy GUI",
