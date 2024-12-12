@@ -54,6 +54,7 @@ local Toggle = Tab:CreateToggle({
     Flag = "FB", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
         if CurrentValue == false then 
+            print("false")
             L.Ambient = (Color3.fromRGB(DF.A))
             L.Brightness = DF.B
             L.ColorShift_Top = (Color3.fromRGB(DF.CT))
@@ -70,6 +71,7 @@ local Toggle = Tab:CreateToggle({
             L.FogStart = DF.FS
         end
         if CurrentValue == true then
+            print("true")
             L.Ambient = (Color3.fromRGB(70, 70, 70))
             L.Brightness = 3
             L.ColorShift_Top= (Color3.fromRGB(0, 0, 0))
