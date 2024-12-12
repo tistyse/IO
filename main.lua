@@ -22,19 +22,19 @@ local Window = Rayfield:CreateWindow({
     LoadingTitle = "IO",
     LoadingSubtitle = "by M.D",
     Theme = "Dark",
- 
+
     ConfigurationSaving = {
        Enabled = true,
        FolderName = nil,
        FileName = "IO"
     },
- 
+
     Discord = {
        Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
        Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
        RememberJoins = true -- Set this to false to make them join the discord every time they load it up
     },
- 
+
     KeySystem = false, -- Set this to true to use our key system
     KeySettings = {
        Title = "Untitled",
@@ -53,8 +53,7 @@ local Toggle = Tab:CreateToggle({
     CurrentValue = false,
     Flag = "FB", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
-        if Toggle: == false then 
-            print("false")
+        if CurrentValue == false then 
             L.Ambient = (Color3.fromRGB(DF.A))
             L.Brightness = DF.B
             L.ColorShift_Top = (Color3.fromRGB(DF.CT))
@@ -70,8 +69,7 @@ local Toggle = Tab:CreateToggle({
             L.FogEnd = DF.FE
             L.FogStart = DF.FS
         end
-        if Value == true then
-            print("true")
+        if CurrentValue == true then
             L.Ambient = (Color3.fromRGB(70, 70, 70))
             L.Brightness = 3
             L.ColorShift_Top= (Color3.fromRGB(0, 0, 0))
