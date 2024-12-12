@@ -1,5 +1,5 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/SiriusSoftwareLtd/Rayfield/main/source.lua'))()
-local l = game.Lighting
+local L = game.Lighting
 DF = {
     A = L.Ambient,
     B = L.Brightness,
