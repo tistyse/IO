@@ -78,11 +78,11 @@ local FBTG = Main:CreateToggle({
             L.EnvironmentDiffuseScale=1
             L.EnvironmentSpecularScale=1
             L.GlobalShadows= true
-            L.OutdoorAmbient= Color3.fromRGB(255, 255, 255)
+            L.OutdoorAmbient= Color3.fromRGB(150, 150, 150)
             L.ShadowSoftness=0
             L.GeographicLatitude=41
             L.ExposureCompensation=0
-            L.FogColor=Color3.fromRGB(255, 255, 255)
+            L.FogColor=Color3.fromRGB(150, 150, 150)
             L.FogEnd = 6000
             L.FogStart=0
         end
