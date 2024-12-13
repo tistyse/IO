@@ -87,25 +87,25 @@ local Toggle = Tab:CreateToggle({
         end
     end
 })
-local Button = Tab:CreateButton({
+local AimbotTG = Tab:CreateButton({
     Name = "OpenAimbot Modified",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/OpenAimbotModified/refs/heads/main/main.lua", true))()
     end
 })
-local Button = Tab:CreateButton({
+local INFJPTG = Tab:CreateButton({
     Name = "Infinite Jump(toggleable)",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/INFJUMP.lua", true))()
     end
 })
-local Button = Tab:CreateButton({
+local FREECAM = Tab:CreateButton({
     Name = "Freecam(Shift+P)",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/freecam.lua", true))()
     end
 })
-local Button = Tab:CreateButton({
+local CTRLTPTG = Tab:CreateButton({
     Name = "Ctrl+click TP(toggleable)",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/CTRLTP.lua", true))()
