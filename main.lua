@@ -46,9 +46,9 @@ local Window = Rayfield:CreateWindow({
        Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
     }
 })
-local Tab = Window:CreateTab("Main", "hexagon")
-local Section = Tab:CreateSection("General")
-local Toggle = Tab:CreateToggle({
+local Main = Window:CreateTab("Main", "hexagon")
+local General = Main:CreateSection("General")
+local FBTG = Main:CreateToggle({
     Name = "Fullbright",
     CurrentValue = false,
     Flag = "FB", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -87,31 +87,95 @@ local Toggle = Tab:CreateToggle({
         end
     end
 })
-local AimbotTG = Tab:CreateButton({
-    Name = "OpenAimbot Modified",
+local AimbotTG = Main:CreateButton({
+    Name = "UnivAimbot",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/OpenAimbotModified/refs/heads/main/main.lua", true))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/agreed69-scripts/open-src-scripts/refs/heads/main/Universal%20Aimbot.lua",true))()
+        Rayfield:Notify({
+            Title = "I/O",
+            Content = "Aimbot is enabled",
+            Duration = 6.5,
+            Image = "paperclip",
+         })
     end
 })
-local INFJPTG = Tab:CreateButton({
+local INFJPTG = Main:CreateButton({
     Name = "Infinite Jump(toggleable)",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/INFJUMP.lua", true))()
+        _G.infinjump = not _G.infinjump
+
+        if _G.infinJumpStarted == nil then
+            _G.infinJumpStarted = true
+            Rayfield:Notify({
+                Title = "I/O",
+                Content = "Infinite jump is enabled",
+                Duration = 6.5,
+                Image = "paperclip",
+            })
+            local plr = game:GetService('Players').LocalPlayer
+            local m = plr:GetMouse()
+            m.KeyDown:connect(function(k)
+                if _G.infinjump then
+                    if k:byte() == 32 then
+                    humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+                    humanoid:ChangeState('Jumping')
+                    wait()
+                    humanoid:ChangeState('Seated')
+                    end
+                end
+            end)
+        end
     end
 })
-local FREECAM = Tab:CreateButton({
+local FREECAM = Main:CreateButton({
     Name = "Freecam(Shift+P)",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/freecam.lua", true))()
+        Rayfield:Notify({
+            Title = "I/O",
+            Content = "Freecam is enabled",
+            Duration = 6.5,
+            Image = "paperclip",
+        })
     end
 })
-local CTRLTPTG = Tab:CreateButton({
+local CTRLTPTG = Main:CreateButton({
     Name = "Ctrl+click TP(toggleable)",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/CTRLTP.lua", true))()
+        if _G.WRDClickTeleport == nil then
+            _G.WRDClickTeleport = true
+            
+            local player = game:GetService("Players").LocalPlayer
+            local UserInputService = game:GetService("UserInputService")
+            local mouse = player:GetMouse()
+            repeat wait() until mouse
+            UserInputService.InputBegan:Connect(function(input, gameProcessed)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    if _G.WRDClickTeleport and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+                        player.Character:MoveTo(Vector3.new(mouse.Hit.x, mouse.Hit.y, mouse.Hit.z)) 
+                    end
+                end
+            end)
+        else
+            _G.WRDClickTeleport = not _G.WRDClickTeleport
+            if _G.WRDClickTeleport then
+                Rayfield:Notify({
+                    Title = "I/O",
+                    Content = "Ctrl+click TP is enabled",
+                    Duration = 6.5,
+                    Image = "paperclip",
+                 })
+            else
+                Rayfield:Notify({
+                    Title = "I/O",
+                    Content = "Ctrl+click TP is disabled",
+                    Duration = 6.5,
+                    Image = "paperclip",
+                 })
+            end
+        end
     end
 })
-local Label = Tab:CreateLabel("Danger", "triangle-alert", Color3.fromRGB(255, 77, 77))
 local Button = Tab:CreateButton({
     Name = "Destroy GUI",
     Callback = function()
