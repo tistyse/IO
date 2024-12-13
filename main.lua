@@ -1,4 +1,8 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Sense = loadstring(game:HttpGet('https://sirius.menu/sense'))()
+Sense.teamSettings.enemy.enabled = false
+Sense.teamSettings.enemy.box = false
+Sense.teamSettings.enemy.boxColor[1] = Color3.new(0, 0.25, 0.75)
 local L = game.Lighting
 DF = {
     A = game.Lighting.Ambient,
@@ -47,6 +51,7 @@ local Window = Rayfield:CreateWindow({
     }
 })
 local Main = Window:CreateTab("Main", "hexagon")
+local ESP = Window:CreateTab("ESP", "binoculars")
 local Misc = Window:CreateTab("Mics", "settings")
 local General = Main:CreateSection("General")
 local FBTG = Main:CreateToggle({
@@ -86,6 +91,18 @@ local FBTG = Main:CreateToggle({
             L.FogEnd = 6000
             L.FogStart=0
         end
+    end
+})
+local AimbotTG = Main:CreateButton({
+    Name = "Aimbot",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/AirHub-V2/main/src/Main.lua"))()
+        Rayfield:Notify({
+            Title = "I/O",
+            Content = "Aimbot is enabled",
+            Duration = 6.5,
+            Image = "paperclip",
+         })
     end
 })
 local INFJPTG = Main:CreateButton({
@@ -171,3 +188,159 @@ local Destroy = Misc:CreateButton({
         Rayfield:Destroy()
     end
 })
+local LimitDTG = ESP:CreateToggle({
+    Name = "Limit Distance",
+    CurrentValue = false,
+    Flag = "LDTG",
+    Callback = function(Value)
+        if Value == false then
+            Sense.sharedSettings.limitDistance = false
+        end
+        if Value == true then
+            Sense.sharedSettings.limitDistance = true
+        end
+    end
+})
+local DistanceSlider = ESP:CreateSlider({
+    Name = "Slider Example",
+    Range = {5, 5000},
+    Increment = 5,
+    Suffix = "Studs",
+    CurrentValue = 150,
+    Flag = "DistanceSLider",
+    Callback = function(Value)
+        Sense.sharedSettings.maxDistance = Value
+    end,
+})
+local UseTeamColor = ESP:CreateToggle({
+    Name = "Use Team Color",
+    CurrentValue = false,
+    Flag = "UTC",
+    Callback = function(Value)
+        if Value == false then
+            Sense.sharedSettings.useTeamColor = false
+        end
+        if Value == true then
+            Sense.sharedSettings.useTeamColor = true
+        end
+    end
+})
+local ToggleESP = ESP:CreateToggle({
+    Name = "Toggle ESP",
+    CurrentValue = false,
+    Flag = "ESP",
+    Callback = function(Value)
+        if Value == false then
+            Sense.teamSettings.enemy.enabled = false
+        end
+        if Value == true then
+            Sense.teamSettings.enemy.enabled = true
+        end
+    end
+})
+local ToggleESPB = ESP:CreateToggle({
+    Name = "Toggle ESP Box",
+    CurrentValue = false,
+    Flag = "ESPB",
+    Callback = function(Value)
+        if Value == false then
+            Sense.teamSettings.enemy.box = false
+        end
+        if Value == true then
+            Sense.teamSettings.enemy.box = true
+        end
+    end
+})
+local ToggleESPBF = ESP:CreateToggle({
+    Name = "Toggle Box Filled",
+    CurrentValue = false,
+    Flag = "ESPBF",
+    Callback = function(Value)
+        if Value == false then
+            Sense.teamSettings.enemy.boxFill = false
+        end
+        if Value == true then
+            Sense.teamSettings.enemy.boxFill = true
+        end
+    end
+})
+local ToggleESPBO = ESP:CreateToggle({
+    Name = "Toggle Box Outline",
+    CurrentValue = false,
+    Flag = "ESPBO",
+    Callback = function(Value)
+        if Value == false then
+            Sense.teamSettings.enemy.boxOutline = false
+        end
+        if Value == true then
+            Sense.teamSettings.enemy.boxOutline = true
+        end
+    end
+})
+local ToggleESPDS = ESP:CreateToggle({
+    Name = "Toggle Distance",
+    CurrentValue = false,
+    Flag = "ESPD",
+    Callback = function(Value)
+        if Value == false then
+            Sense.teamSettings.enemy.distance = false
+        end
+        if Value == true then
+            Sense.teamSettings.enemy.distance = true
+        end
+    end
+})
+local ToggleESPH = ESP:CreateToggle({
+    Name = "Toggle Health Bar",
+    CurrentValue = false,
+    Flag = "ESPH",
+    Callback = function(Value)
+        if Value == false then
+            Sense.teamSettings.enemy.healthBar = false
+        end
+        if Value == true then
+            Sense.teamSettings.enemy.healthBar = true
+        end
+    end
+})
+local ToggleESPT = ESP:CreateToggle({
+    Name = "Toggle Tracer",
+    CurrentValue = false,
+    Flag = "ESPT",
+    Callback = function(Value)
+        if Value == false then
+            Sense.teamSettings.enemy.tracer = false
+        end
+        if Value == true then
+            Sense.teamSettings.enemy.tracer = true
+        end
+    end
+})
+local ToggleESPc = ESP:CreateToggle({
+    Name = "Toggle Chams",
+    CurrentValue = false,
+    Flag = "ESPC",
+    Callback = function(Value)
+        if Value == false then
+            Sense.teamSettings.enemy.chams = false
+        end
+        if Value == true then
+            Sense.teamSettings.enemy.chams = true
+        end
+    end
+})
+local ToggleESPN = ESP:CreateToggle({
+    Name = "Toggle Name Esp",
+    CurrentValue = false,
+    Flag = "ESPN",
+    Callback = function(Value)
+        if Value == false then
+            Sense.teamSettings.enemy.name = false
+        end
+        if Value == true then
+            Sense.teamSettings.enemy.nAME = true
+        end
+    end
+})
+
+Sense.Load()
