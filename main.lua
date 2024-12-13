@@ -1,8 +1,5 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Sense = loadstring(game:HttpGet('https://sirius.menu/sense'))()
-Sense.teamSettings.enemy.enabled = false
-Sense.teamSettings.enemy.box = false
-Sense.teamSettings.enemy.boxColor[1] = Color3.new(0, 0.25, 0.75)
 local L = game.Lighting
 DF = {
     A = game.Lighting.Ambient,
