@@ -88,18 +88,6 @@ local FBTG = Main:CreateToggle({
         end
     end
 })
-local AimbotTG = Main:CreateButton({
-    Name = "Aimbot",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/AirHub-V2/main/src/Main.lua"))()
-        Rayfield:Notify({
-            Title = "I/O",
-            Content = "Aimbot is enabled",
-            Duration = 6.5,
-            Image = "paperclip",
-         })
-    end
-})
 local INFJPTG = Main:CreateButton({
     Name = "Infinite Jump(toggleable)",
     Callback = function()
