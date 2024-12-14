@@ -25,12 +25,13 @@ local IO = Fluent:CreateWindow({
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
-    Theme = "Dark",
+    Theme = "Dark Typewriter",
     MinimizeKey = Enum.KeyCode.LeftAlt -- Used when theres no MinimizeKeybind
 })
 local Tabs = {
     Main = IO:AddTab({Title = "Main", Icon = "hexagon" }),
 }
+IO:SelectTab(1)
 do
     local Fullbright = Tabs.Main:AddToggle("Fullbright", {Title = "Fullbright", Default = false})
     Fullbright:OnChanged(function()
