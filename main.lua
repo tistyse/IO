@@ -91,8 +91,7 @@ local FBTG = Main:CreateToggle({
 local AIMBOT = Main:CreateButton({
     Name = "Aimbot",
     Callback = function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/OpenAimbotModified/refs/heads/main/main.lua", true))()
-        end
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/OpenAimbotModified/refs/heads/main/main.lua", true))()
     end
 })
 local INFJPTG = Main:CreateButton({
