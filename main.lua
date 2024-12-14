@@ -1,4 +1,7 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+local Options = Fluent.Options
 local L = game.Lighting
 DF = {
     A = game.Lighting.Ambient,
@@ -16,45 +19,22 @@ DF = {
     FE = game.Lighting.FogEnd,
     FS = game.Lighting.FogStart
 }
-local Window = Rayfield:CreateWindow({
-    Name = "IO",
-    Icon = "hexagon",
-    LoadingTitle = "IO",
-    LoadingSubtitle = "by M.D",
+local IO = Fluent:CreateWindow({
+    Title = "IO",
+    SubTitle = "by M.D",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
     Theme = "Dark",
-
-    ConfigurationSaving = {
-       Enabled = true,
-       FolderName = nil,
-       FileName = "IO"
-    },
-
-    Discord = {
-       Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-       Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
-       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-    },
-
-    KeySystem = false, -- Set this to true to use our key system
-    KeySettings = {
-       Title = "Untitled",
-       Subtitle = "Key System",
-       Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
-       FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
-    }
+    MinimizeKey = Enum.KeyCode.LeftAlt -- Used when theres no MinimizeKeybind
 })
-local Main = Window:CreateTab("Main", "hexagon")
-local Misc = Window:CreateTab("Misc", "settings")
-local General = Main:CreateSection("General")
-local FBTG = Main:CreateToggle({
-    Name = "Fullbright",
-    CurrentValue = false,
-    Flag = "FB", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        if Value == false then 
+local Tabs = {
+    Main = IO:AddTab({Title = "Main", Icon = "hexagon" }),
+}
+do
+    local Fullbright = Tabs.Main:AddToggle("Fullbright", {Title = "Fullbright", Default = false})
+    Fullbright:OnChanged(function()
+        if Options.Fullbright.Value == false then 
             L.Ambient = (Color3.fromRGB(DF.A))
             L.Brightness = DF.B
             L.ColorShift_Top = (Color3.fromRGB(DF.CT))
@@ -70,7 +50,7 @@ local FBTG = Main:CreateToggle({
             L.FogEnd = DF.FE
             L.FogStart = DF.FS
         end
-        if Value == true then
+        if Options.Fullbright.Value == true then
             L.Ambient = (Color3.fromRGB(70, 70, 70))
             L.Brightness = 3
             L.ColorShift_Top= (Color3.fromRGB(0, 0, 0))
@@ -86,94 +66,48 @@ local FBTG = Main:CreateToggle({
             L.FogEnd = 6000
             L.FogStart=0
         end
-    end
-})
-local AIMBOT = Main:CreateButton({
-    Name = "Aimbot",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/OpenAimbotModified/refs/heads/main/main.lua", true))()
-    end
-})
-local INFJPTG = Main:CreateButton({
-    Name = "Infinite Jump(toggleable)",
-    Callback = function()
-        _G.infinjump = not _G.infinjump
-
-        if _G.infinJumpStarted == nil then
-            _G.infinJumpStarted = true
-            Rayfield:Notify({
-                Title = "I/O",
-                Content = "Infinite jump is enabled",
-                Duration = 6.5,
-                Image = "paperclip",
-            })
-            local plr = game:GetService('Players').LocalPlayer
-            local m = plr:GetMouse()
-            m.KeyDown:connect(function(k)
-                if _G.infinjump then
-                    if k:byte() == 32 then
-                    humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
-                    humanoid:ChangeState('Jumping')
-                    wait()
-                    humanoid:ChangeState('Seated')
-                    end
-                end
-            end)
+    end)
+    Tabs.Main:AddButton({
+        Title = "Aimbot",
+        Description = "Opens Aimbot Tab",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/OpenAimbotModified/refs/heads/main/main.lua", true))()
         end
-    end
-})
-local FREECAM = Main:CreateButton({
-    Name = "Freecam(Shift+P)",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/freecam.lua", true))()
-        Rayfield:Notify({
-            Title = "I/O",
-            Content = "Freecam is enabled",
-            Duration = 6.5,
-            Image = "paperclip",
-        })
-    end
-})
-local CTRLTPTG = Main:CreateButton({
-    Name = "Ctrl+click TP(toggleable)",
-    Callback = function()
-        if _G.WRDClickTeleport == nil then
-            _G.WRDClickTeleport = true
-            
-            local player = game:GetService("Players").LocalPlayer
-            local UserInputService = game:GetService("UserInputService")
-            local mouse = player:GetMouse()
-            repeat wait() until mouse
-            UserInputService.InputBegan:Connect(function(input, gameProcessed)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                    if _G.WRDClickTeleport and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
-                        player.Character:MoveTo(Vector3.new(mouse.Hit.x, mouse.Hit.y, mouse.Hit.z)) 
-                    end
+    })
+    local InfiniteJump = Tabs.Main:AddToggle("InfiniteJump", {Title = "Infinite Jump", Default = false})
+    InfiniteJump:OnChanged(function()
+        local plr = game:GetService('Players').LocalPlayer
+        local m = plr:GetMouse()
+        m.KeyDown:connect(function(k)
+            if Options.InfiniteJump.Value == true then
+                if k:byte() == 32 then
+                humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+                humanoid:ChangeState('Jumping')
+                wait()
+                humanoid:ChangeState('Seated')
                 end
-            end)
-        else
-            _G.WRDClickTeleport = not _G.WRDClickTeleport
-            if _G.WRDClickTeleport then
-                Rayfield:Notify({
-                    Title = "I/O",
-                    Content = "Ctrl+click TP is enabled",
-                    Duration = 6.5,
-                    Image = "paperclip",
-                 })
-            else
-                Rayfield:Notify({
-                    Title = "I/O",
-                    Content = "Ctrl+click TP is disabled",
-                    Duration = 6.5,
-                    Image = "paperclip",
-                 })
             end
+        end)
+    end)
+    Tabs.Main:AddButton({
+        Title = "Freecam",
+        Description = "Shift+P to toggle Freecam",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/freecam.lua", true))()
         end
-    end
-})
-local Destroy = Misc:CreateButton({
-    Name = "Destroy GUI",
-    Callback = function()
-        Rayfield:Destroy()
-    end
-})
+    })
+    local CtrlTP = Tabs.Main:AddToggle("CtrlTP", {Title = "Ctrl+Click TP", Default = false})
+    CtrlTP:OnChanged(function()
+        local player = game:GetService("Players").LocalPlayer
+        local UserInputService = game:GetService("UserInputService")
+        local mouse = player:GetMouse()
+        repeat wait() until mouse
+        UserInputService.InputBegan:Connect(function(input, gameProcessed)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                if Options.CtrlTP.Value == true and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+                    player.Character:MoveTo(Vector3.new(mouse.Hit.x, mouse.Hit.y, mouse.Hit.z)) 
+                end
+            end
+        end)
+    end)
+end
