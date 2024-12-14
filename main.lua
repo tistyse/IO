@@ -47,7 +47,7 @@ local Window = Rayfield:CreateWindow({
     }
 })
 local Main = Window:CreateTab("Main", "hexagon")
-local Misc = Window:CreateTab("Mics", "settings")
+local Misc = Window:CreateTab("Misc", "settings")
 local General = Main:CreateSection("General")
 local FBTG = Main:CreateToggle({
     Name = "Fullbright",
