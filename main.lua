@@ -88,6 +88,13 @@ local FBTG = Main:CreateToggle({
         end
     end
 })
+local AIMBOT = Main:CreateButton({
+    Name = "Aimbot",
+    Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/OpenAimbotModified/refs/heads/main/main.lua", true))()
+        end
+    end
+})
 local INFJPTG = Main:CreateButton({
     Name = "Infinite Jump(toggleable)",
     Callback = function()
