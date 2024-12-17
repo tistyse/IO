@@ -52,7 +52,7 @@ do
             L.FogStart = DF.FS
         end
         if Options.Fullbright.Value == true then
-            L.Ambient = (Color3.fromRGB(70, 70, 70))
+            L.Ambient = (Color3.fromRGB(120, 120, 120))
             L.Brightness = 3
             L.ColorShift_Top= (Color3.fromRGB(0, 0, 0))
             L.ColorShift_Bottom= (Color3.fromRGB(0, 0, 0))
