@@ -30,9 +30,11 @@ local IO = Fluent:CreateWindow({
 })
 local Tabs = {
     Main = IO:AddTab({Title = "Main", Icon = "hexagon" }),
+    Misc = IO:AddTab({Title = "Misc", Icon = "hexagon" }),
 }
 IO:SelectTab(1)
 do
+    --main tab
     local Fullbright = Tabs.Main:AddToggle("Fullbright", {Title = "Fullbright", Default = false})
     Fullbright:OnChanged(function()
         if Options.Fullbright.Value == false then 
@@ -111,4 +113,19 @@ do
             end
         end)
     end)
+    --misc tab
+    Tabs.Misc:AddButton({
+        Title = "Infinite Yield",
+        Description = "The best command line script for roblox.",
+        Callback = function()
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+        end
+    })
+    Tabs.Misc:AddButton({
+        Title = "Fly",
+        Description = "I Believe I Can Fly",
+        Callback = function()
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/fly.lua'))()
+        end
+    })
 end
