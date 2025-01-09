@@ -113,6 +113,13 @@ do
             end
         end)
     end)
+    Tabs.Main:AddButton({
+        Title = "bighead",
+        Description = "How big head!",
+        Callback = function()
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/tistyse/Scripts/refs/heads/main/BigHead.lua'))()
+        end
+    })
     --misc tab
     Tabs.Misc:AddButton({
         Title = "Infinite Yield",
