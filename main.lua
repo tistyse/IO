@@ -70,13 +70,6 @@ do
             L.FogStart=0
         end
     end)
-    Tabs.Main:AddButton({
-        Title = "Aimbot",
-        Description = "Opens Aimbot Tab",
-        Callback = function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/tistyse/OpenAimbotModified/refs/heads/main/main.lua", true))()
-        end
-    })
     local InfiniteJump = Tabs.Main:AddToggle("InfiniteJump", {Title = "Infinite Jump", Default = false})
     InfiniteJump:OnChanged(function()
         local plr = game:GetService('Players').LocalPlayer
